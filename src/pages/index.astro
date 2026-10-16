@@ -1,0 +1,274 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EventCard from '../components/EventCard.astro';
+import PictureFigure from '../components/PictureFigure.astro';
+import { getEventBuckets, getEventsSorted } from '../lib/events';
+import { contact, site } from '../data/site';
+
+const buckets = await getEventBuckets();
+const all = await getEventsSorted();
+const innoverse = all.find((entry) => entry.id === '2026-09-28-innoverse');
+const leadership = (await import('../content/leadership/session-2026-27.json')).default;
+const studentHead = leadership.groups
+  .find((group) => group.id === 'students')
+  ?.members.find((member) => member.role === 'SIC Student Head');
+
+const whatItRuns = [
+  {
+    num: '01',
+    title: 'Innovation Cell',
+    body: 'The tinkering side: problem finding, prototyping, technical projects, industrial visits and entries in Bal Vigyan and Anveshan.',
+  },
+  {
+    num: '02',
+    title: 'Entrepreneurship Cell',
+    body: 'Ideation workshops, sessions with founders, and showcase events where students pitch complete business ideas with SWOT and financial plans.',
+  },
+  {
+    num: '03',
+    title: 'Good Earth',
+    body: 'The council’s own social enterprise. Eco-friendly products are made and sold, and the profits fund community service.',
+  },
+  {
+    num: '04',
+    title: 'Innovation Wall',
+    body: 'The archive of past student projects, grouped by academic year and split into past, ongoing and future work.',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'EducationalOrganization',
+  name: 'School Innovation Council, Choithram School',
+  url: site.sicPages,
+  email: contact.email,
+  parentOrganization: {
+    '@type': 'School',
+    name: site.school,
+    url: site.schoolWebsite,
+  },
+};
+---
+
+<BaseLayout title="Home" description={site.description} jsonLd={jsonLd}>
+  <!-- ---------------------------------------------------------------- hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <span class="eyebrow">School Innovation Council · session 2026-27</span>
+          <h1>Ideation, tinkering and enterprise, run by students.</h1>
+          <p class="lede">
+            Welcome to the School Innovation Council at Choithram School, Manik
+            Bagh Road, Indore. Here you can see what the council does, what it has
+            planned month by month, what it has already done, who leads it and how
+            to reach it.
+          </p>
+          <div class="hero__actions">
+            <a class="btn" href="/events/">What’s on this session</a>
+            <a class="btn btn--ghost" href="/about/">What is SIC?</a>
+          </div>
+        </div>
+
+        <div class="hero__aside">
+          <dl class="aside-card">
+            <dt>Programme</dt>
+            <dd>
+              An initiative of the Ministry of Education’s Innovation Cell, run
+              through registered School Innovation Councils.
+            </dd>
+          </dl>
+          <dl class="aside-card">
+            <dt>This session</dt>
+            <dd>2026-27: five months published so far, October to February</dd>
+          </dl>
+          <dl class="aside-card">
+            <dt>Reach the council</dt>
+            <dd><a href={`mailto:${contact.email}`}>{contact.email}</a></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="hero__figure">
+        <PictureFigure
+          src="/images/sic-shakti-pumps-visit.jpg"
+          alt="Council members on the industrial visit to Shakti Pumps India Ltd, Pithampur."
+          wide
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------- what the council runs -->
+  <section class="section section--tint" aria-labelledby="runs">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-head__row">
+          <div>
+            <span class="eyebrow">What the council runs</span>
+            <h2 id="runs" class="h-section">Three working bodies, and one archive</h2>
+          </div>
+        </div>
+        <p class="lede">
+          The council is not a single club. It is a committee that carries an
+          annual activity calendar, with three student-run bodies doing the work
+          underneath it.
+        </p>
+      </div>
+
+      <ul class="index-list">
+        {
+          whatItRuns.map((row) => (
+            <li class="index-list__item">
+              <p class="index-list__num">{row.num}</p>
+              <p class="index-list__title">{row.title}</p>
+              <div class="index-list__body">
+                <p>{row.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------- now/plan -->
+  <section class="section" aria-labelledby="now">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-head__row">
+          <div>
+            <span class="eyebrow">From the activity calendar</span>
+            <h2 id="now" class="h-section">This session, month by month</h2>
+          </div>
+          <a class="link-arrow" href="/events/">Every event, including the archive</a>
+        </div>
+        <p class="lede">
+          The activity calendar for 2026-27 names each month and the work planned
+          in it. Dates, times and venues are announced closer to each month, so
+          these are listed as plans rather than as appointments.
+        </p>
+      </div>
+
+      <div class="event-list event-list--grid">
+        {buckets.now.map((entry) => <EventCard entry={entry} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------- feature -->
+  <section class="section section--deep" aria-labelledby="feature">
+    <div class="wrap">
+      {
+        innoverse && (
+          <div class="split split--uneven on-deep">
+            <div class="stack-sm">
+              <span class="eyebrow">Most recent</span>
+              <h2 id="feature" class="h-section">
+                {innoverse.data.title}
+              </h2>
+              <p class="event__date">{innoverse.data.dateLabel}</p>
+              <p class="lede">{innoverse.data.summary}</p>
+              <div class="cluster mt-sm">
+                <a class="btn" href={`/events/${innoverse.id}/`}>
+                  Read the event page
+                </a>
+                <a
+                  class="btn btn--ghost"
+                  href={innoverse.data.links[0]?.href ?? 'https://choithramschool.com/innoverse/'}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                >
+                  Discover Innoverse
+                </a>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- -------------------------------------------------------------- gallery -->
+  <section class="section section--tint" aria-labelledby="seen">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-head__row">
+          <div>
+            <span class="eyebrow">In pictures</span>
+            <h2 id="seen" class="h-section">What the work looks like</h2>
+          </div>
+          <a
+            class="link-arrow"
+            href="https://choithramschool.com/sic/event.php"
+            rel="noreferrer noopener"
+            target="_blank"
+          >
+            Photo gallery
+          </a>
+        </div>
+        <p class="lede">A few moments from the council’s activities this session.</p>
+      </div>
+
+      <div class="gallery">
+        <PictureFigure
+          src="/images/sic-cbse-science.jpg"
+          alt="Students at the CBSE regional science competition."
+        />
+        <PictureFigure
+          src="/images/sic-ipr-workshop.jpg"
+          alt="A session on intellectual property rights."
+        />
+        <PictureFigure
+          src="/images/sic-good-earth-plantation.jpg"
+          alt="Students planting saplings during the Good Earth plantation drive."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------ leadership -->
+  <section class="section" aria-labelledby="leads">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-head__row">
+          <div>
+            <span class="eyebrow">Session 2026-27</span>
+            <h2 id="leads" class="h-section">Who runs it</h2>
+          </div>
+          <a class="link-arrow" href="/leadership/">The full committee</a>
+        </div>
+        <p class="lede">
+          The council publishes its committee once a session: teachers and
+          external experts nominated under the national programme, plus student
+          office-holders for each body.
+        </p>
+      </div>
+
+      <div class="def-grid">
+        <div class="def-card">
+          <h3>Chairman of the Council</h3>
+          <p>
+            <b>{leadership.groups[0]?.members[0]?.name}</b> presides over the
+            council and its activity calendar.
+          </p>
+        </div>
+        <div class="def-card">
+          <h3>SIC Convener</h3>
+          <p>
+            <b>{leadership.groups[0]?.members[2]?.name}</b> convenes the committee
+            and its reporting.
+          </p>
+        </div>
+        <div class="def-card def-card--red">
+          <h3>SIC Student Head</h3>
+          <p>
+            <b>{studentHead?.name}</b> leads the student council for the session,
+            with a head for each of the three bodies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

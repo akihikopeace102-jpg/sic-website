@@ -1,0 +1,173 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+
+const iCellObjectives = [
+  'Enhance the process of ideation in students.',
+  'Promote collaboration, research, and innovation among students.',
+  'Develop scientific, analytical, and computational skills of the students.',
+  'Provide a platform for students to express themselves.',
+  'Align the IIE of higher education levels with the school level to increase the preparedness of students towards Research and Development.',
+];
+
+const iCellOutcomes = [
+  'A strengthened IIE ecosystem in the school.',
+  'Awareness about the importance of the IIE ecosystem in today’s world.',
+  'Preparedness towards research and development done at higher education levels.',
+  'Preparedness of the school to handhold ideation and innovation initiatives of the students.',
+];
+
+const eCellObjectives = [
+  'Provide a platform to showcase India’s next generation of innovators, entrepreneurs and change-makers.',
+  'Guide the finest innovations towards a vibrant business concept and resource students to establish themselves as start-ups.',
+  'Inculcate the spirit of entrepreneurship among students.',
+  'Bring about partnerships with frontier organisations in entrepreneurship so students get access to resources.',
+  'Inspire students to take up entrepreneurship as a career.',
+  'Help students acquire the knowledge and skills to translate a vague idea into a business proposal.',
+  'Connect students with entrepreneurial leaders and innovators.',
+];
+
+const goodEarth = [
+  'Sell eco-friendly products made by students: diyas, Ganesh idols, seed pencils and similar items.',
+  'Put the profits to work. The profits of Good Earth fund community service, including the visit to Nirashit Ashram.',
+  'Give students practical exposure to enterprise, covering making, pricing, marketing and selling, rather than studying it in a classroom.',
+];
+---
+
+<BaseLayout
+  title="Mission & vision"
+  description="The vision and objectives of the School Innovation Council at Choithram School: the I-Cell’s vision, the E-Cell’s objectives, Good Earth’s purpose, and the programme’s own objectives."
+>
+  <section class="page-head">
+    <div class="wrap page-head__inner">
+      <p class="breadcrumb"><a href="/">Home</a> / Mission &amp; vision</p>
+      <span class="eyebrow">Aims of the council</span>
+      <h1>Mission and vision</h1>
+      <p class="lede">
+        The vision and objectives that guide the council and its three bodies:
+        the Innovation Cell, the Entrepreneurship Cell and Good Earth.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <figure class="pull">
+        <blockquote>
+          To nurture young scientific minds and allow them to grow into
+          harbingers of change in society by upholding and fostering the School
+          Innovation Council’s culture of Ideation, Innovation and
+          Entrepreneurship (IIE).
+        </blockquote>
+        <figcaption>The vision of the Innovation Cell.</figcaption>
+      </figure>
+
+      <div class="split mt-lg">
+        <article class="prose">
+          <h2>Innovation Cell: objectives</h2>
+          <ul>{iCellObjectives.map((item) => <li>{item}</li>)}</ul>
+
+          <h2>Innovation Cell: expected outcomes</h2>
+          <ul>{iCellOutcomes.map((item) => <li>{item}</li>)}</ul>
+
+          <p class="note">
+            The Innovation Cell is the part of the council that undertakes
+            scientific ideation, innovation, research and development.
+          </p>
+        </article>
+
+        <article class="prose">
+          <h2>Entrepreneurship Cell: objectives</h2>
+          <p>
+            The Entrepreneurship Cell was <strong>founded in 2013</strong> to
+            foster entrepreneurial competencies among budding entrepreneurs, and
+            aims to give aspiring entrepreneurs meaningful insights and
+            real-world business opportunities and experience.
+          </p>
+          <ul>{eCellObjectives.map((item) => <li>{item}</li>)}</ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="good-earth">
+    <div class="wrap">
+      <div class="split split--uneven">
+        <div>
+          <div class="section-head">
+            <span class="eyebrow">The third body</span>
+            <h2 id="good-earth" class="h-section">Good Earth, and what it is for</h2>
+          </div>
+          <p class="lede">
+            Good Earth is the council’s student-led social enterprise, the part of
+            the mission that earns its own money before it can spend it on anyone
+            else.
+          </p>
+          <ul class="tick-list">
+            {
+              goodEarth.map((item) => <li>{item}</li>)
+            }
+          </ul>
+        </div>
+
+        <figure class="figure">
+          <img
+            src="/images/sic-good-earth-plantation.jpg"
+            alt="Students planting saplings during the Good Earth plantation drive."
+            width="800"
+            height="600"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="programme-mission">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The programme the council belongs to</span>
+        <h2 id="programme-mission" class="h-section">
+          What the national programme says a council is for
+        </h2>
+        <p class="lede">
+          From the Ministry of Education’s Scheme and Guidelines, the purposes a
+          council is measured against.
+        </p>
+      </div>
+
+      <div class="def-grid">
+        <div class="def-card">
+          <h3>The stated objective</h3>
+          <p>
+            “The School Innovation Council will foster the culture of Ideation,
+            Innovation and Entrepreneurship (IIE) in schools.”
+          </p>
+        </div>
+        <div class="def-card def-card--red">
+          <h3>Expected outcomes</h3>
+          <p>
+            Establishing and strengthening the IIE ecosystem in schools;
+            awareness of IIE, design thinking, creative thinking, IPR, finance and
+            product sales; aligning the school ecosystem with the higher-education
+            ecosystem; and guiding schools towards a sustainable ecosystem of
+            innovation, entrepreneurship, IPR creation and design thinking.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout mt-lg">
+        <h3>The school’s wider mission</h3>
+        <p>
+          This site covers the School Innovation Council only. For the school’s
+          wider ethos, academics and admissions, visit{' '}
+          <a href={site.schoolWebsite} rel="noreferrer noopener" target="_blank">
+            choithramschool.com
+          </a>
+          .
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  body: string;
+  actionLabel?: string;
+  actionHref?: string;
+}
+
+const { title, body, actionLabel, actionHref } = Astro.props;
+---
+
+<div class="empty-state" role="note">
+  <h3>{title}</h3>
+  <p>{body}</p>
+  {
+    actionLabel && actionHref && (
+      <p>
+        <a class="link-arrow" href={actionHref}>
+          {actionLabel}
+        </a>
+      </p>
+    )
+  }
+</div>

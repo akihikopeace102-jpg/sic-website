@@ -1,0 +1,26 @@
+{
+  "name": "choithram-sic",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "School Innovation Council (SIC) website, Choithram School, Manik Bagh Road, Indore.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint": "astro check",
+    "contrast": "node scripts/check-contrast.mjs",
+    "links": "node scripts/check-links.mjs",
+    "links:external": "node scripts/check-links.mjs --external",
+    "verify": "npm run check && npm run build && npm run contrast && npm run links"
+  },
+  "dependencies": {
+    "astro": "^7.4.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.6.5",
+    "typescript": "^5.9.3"
+  }
+}

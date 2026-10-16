@@ -1,0 +1,14 @@
+# Build artefacts
+node_modules/
+.astro/
+dist/
+
+# Local environment — copy to .env and edit. Never commit .env.
+.env
+.env.local
+
+# Editor / OS noise
+.DS_Store
+*.log
+.vscode/
+.idea/

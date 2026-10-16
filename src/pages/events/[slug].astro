@@ -1,0 +1,121 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getEventsSorted, primaryLink } from '../../lib/events';
+
+export async function getStaticPaths() {
+  const entries = await getEventsSorted();
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const data = entry.data;
+const link = primaryLink(data);
+
+const all = await getEventsSorted();
+const index = all.findIndex((item) => item.id === entry.id);
+const previous = index > 0 ? all[index - 1] : undefined;
+const next = index < all.length - 1 ? all[index + 1] : undefined;
+
+const statusText =
+  data.status === 'planned'
+    ? 'Planned'
+    : data.status === 'upcoming'
+      ? 'Upcoming'
+      : data.status === 'ongoing'
+        ? 'Happening now'
+        : 'Completed';
+---
+
+<BaseLayout title={data.title} description={data.summary} ogType="article">
+  <section class="page-head">
+    <div class="wrap page-head__inner">
+      <p class="breadcrumb">
+        <a href="/">Home</a> / <a href="/events/">What’s on</a> / {data.title}
+      </p>
+      <div class="cluster">
+        <span class={`status status--${data.status === 'planned' ? 'planned' : data.status === 'completed' ? 'completed' : data.status}`}>
+          {statusText}
+        </span>
+        {data.dateLabel && <span class="event__date">{data.dateLabel}</span>}
+      </div>
+      <h1>{data.title}</h1>
+      <p class="lede">{data.summary}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split split--uneven">
+        <article class="prose">
+          <Content />
+        </article>
+
+        <div>
+          <dl class="contact-list">
+            {data.dateLabel && (
+              <div>
+                <dt>Date</dt>
+                <dd>{data.dateLabel}</dd>
+              </div>
+            )}
+            {data.time && (
+              <div>
+                <dt>Time</dt>
+                <dd>{data.time}</dd>
+              </div>
+            )}
+            {data.location && (
+              <div>
+                <dt>Where</dt>
+                <dd>{data.location}</dd>
+              </div>
+            )}
+            {
+              link && (
+                <div>
+                  <dt>Link</dt>
+                  <dd>
+                    <a href={link.href} rel="noreferrer noopener" target="_blank">
+                      {link.label}
+                    </a>
+                  </dd>
+                </div>
+              )
+            }
+          </dl>
+
+          {
+            data.image && (
+              <figure class="figure mt-lg">
+                <img
+                  src={data.image.src}
+                  alt={data.image.alt}
+                  width="1200"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </figure>
+            )
+          }
+        </div>
+      </div>
+
+      <div class="cluster mt-lg">
+        <a class="btn btn--ghost" href="/events/">All events</a>
+        {previous && (
+          <a class="link-arrow" href={`/events/${previous.id}/`}>
+            Previous: {previous.data.title}
+          </a>
+        )}
+        {next && (
+          <a class="link-arrow" href={`/events/${next.id}/`}>
+            Next: {next.data.title}
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

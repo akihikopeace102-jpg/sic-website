@@ -1,0 +1,67 @@
+---
+import type { EventEntry } from '../lib/events';
+import { primaryLink } from '../lib/events';
+
+interface Props {
+  entry: EventEntry;
+}
+
+const { entry } = Astro.props;
+const { data, id } = entry;
+const href = `/events/${id}/`;
+const link = primaryLink(data);
+const statusClass =
+  data.status === 'planned'
+    ? 'status--planned'
+    : data.status === 'completed'
+      ? 'status--completed'
+      : `status--${data.status}`;
+const statusText =
+  data.status === 'planned'
+    ? 'Planned'
+    : data.status === 'upcoming'
+      ? 'Upcoming'
+      : data.status === 'ongoing'
+        ? 'Happening now'
+        : 'Completed';
+---
+
+<article class="event">
+  <div class="event__top">
+    {data.dateLabel && <p class="event__date">{data.dateLabel}</p>}
+    <span class={`status ${statusClass}`}>{statusText}</span>
+  </div>
+
+  <h3><a href={href}>{data.title}</a></h3>
+
+  <p class="event__summary">{data.summary}</p>
+
+  <div class="event__facts">
+    {data.location && <span><b>Where</b> {data.location}</span>}
+    {data.time && <span><b>When</b> {data.time}</span>}
+  </div>
+
+  {
+    data.image && (
+      <figure class="figure event__figure">
+        <img
+          src={data.image.src}
+          alt={data.image.alt}
+          width="1200"
+          height="600"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    )
+  }
+
+  <div class="event__links">
+    <a class="link-arrow" href={href}>Event details</a>
+    {link && (
+      <a class="link-arrow" href={link.href} rel="noreferrer noopener" target="_blank">
+        {link.label}
+      </a>
+    )}
+  </div>
+</article>

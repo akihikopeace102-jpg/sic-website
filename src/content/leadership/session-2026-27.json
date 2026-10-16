@@ -1,0 +1,110 @@
+{
+  "session": "2026-27",
+  "sourceIds": [
+    "sic-council"
+  ],
+  "groups": [
+    {
+      "id": "executive",
+      "heading": "Executive representatives",
+      "blurb": "The office-holders who run the council and hold the login for the national SIC portal.",
+      "members": [
+        {
+          "role": "Chairman of the Council",
+          "name": "Ms. Chitralekha Kulkarni"
+        },
+        {
+          "role": "Dean SIC",
+          "name": "Mr. Vishal Sanwatsar"
+        },
+        {
+          "role": "SIC Convener",
+          "name": "Ms. Sumit Bhatia"
+        }
+      ]
+    },
+    {
+      "id": "teachers",
+      "heading": "Teacher representatives",
+      "blurb": "Teachers nominated to carry the activity calendar and the council's other work through the session.",
+      "members": [
+        {
+          "role": "Innovation Ambassador, trained under SIATP",
+          "name": "Mr. Vishal Sanwatsar",
+          "note": "Also Dean SIC."
+        },
+        {
+          "role": "Innovation Ambassador, trained under SIATP",
+          "name": "Ms. Sumit Bhatia",
+          "note": "Also SIC Convener."
+        },
+        {
+          "role": "Additional member",
+          "name": "Ms. Shalini Saraf"
+        },
+        {
+          "role": "Additional member",
+          "name": "Ms. Shashi Upadhayay"
+        },
+        {
+          "role": "Additional member",
+          "name": "Ms. Prerna Sharma"
+        },
+        {
+          "role": "Atal Tinkering Lab In-Charge",
+          "name": "Mr. Mayank Godbole"
+        },
+        {
+          "role": "Social Media Coordinator",
+          "name": "Mr. Amit Joshi"
+        }
+      ]
+    },
+    {
+      "id": "students",
+      "heading": "Student representatives",
+      "blurb": "Students who lead the council and its three working bodies.",
+      "members": [
+        {
+          "role": "SIC Student Head",
+          "name": "Shourya Jain"
+        },
+        {
+          "role": "Innovation Cell Head",
+          "name": "Daksh Sharma"
+        },
+        {
+          "role": "Entrepreneurship Cell Head",
+          "name": "Bhakti Sharma"
+        },
+        {
+          "role": "GoodEarth Head",
+          "name": "Mishika Navlani"
+        }
+      ]
+    },
+    {
+      "id": "experts",
+      "heading": "External expert representatives",
+      "blurb": "Practitioners from outside the school, drawn in under the national programme's committee structure.",
+      "members": [
+        {
+          "role": "Successful entrepreneur",
+          "name": "Mr. Aanand Ingle"
+        },
+        {
+          "role": "Successful entrepreneur",
+          "name": "Ms. Shital Parikh"
+        },
+        {
+          "role": "Successful entrepreneur",
+          "name": "Mr. Tanay Mukherji"
+        },
+        {
+          "role": "Expert member",
+          "name": "Mr. Amit Marwah"
+        }
+      ]
+    }
+  ]
+}

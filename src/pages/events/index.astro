@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventCard from '../../components/EventCard.astro';
+import ArchiveList from '../../components/ArchiveList.astro';
+import EmptyState from '../../components/EmptyState.astro';
+import { getEventBuckets } from '../../lib/events';
+
+const buckets = await getEventBuckets();
+---
+
+<BaseLayout
+  title="What’s on"
+  description="Everything the School Innovation Council at Choithram School has planned for the 2026-27 session, what it has already run, and its earlier activities."
+>
+  <section class="page-head">
+    <div class="wrap page-head__inner">
+      <p class="breadcrumb"><a href="/">Home</a> / What’s on</p>
+      <span class="eyebrow">Events and activity</span>
+      <h1>What’s on this session</h1>
+      <p class="lede">
+        The months ahead, the events already held this session, and earlier
+        activities of the council.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="planned">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-head__row">
+          <div>
+            <span class="eyebrow">Planned · session 2026-27</span>
+            <h2 id="planned" class="h-section">The months ahead</h2>
+          </div>
+        </div>
+        <p class="lede">
+          From the council’s activity calendar for 2026-27, which sets out an
+          objective and the work planned for each month. Dates, times and venues
+          are announced closer to each month.
+        </p>
+      </div>
+
+      <div class="event-list event-list--grid">
+        {buckets.now.map((entry) => <EventCard entry={entry} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="recent">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-head__row">
+          <div>
+            <span class="eyebrow">Completed · most recent first</span>
+            <h2 id="recent" class="h-section">Recently done</h2>
+          </div>
+        </div>
+      </div>
+
+      {
+        buckets.recent.length > 0 ? (
+          <div class="event-list">
+            {buckets.recent.map((entry) => (
+              <EventCard entry={entry} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="Nothing recent is published yet"
+            body="No recent event has been published. Earlier activity is listed below."
+            actionLabel="Jump to the earlier archive"
+            actionHref="#earlier"
+          />
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section" id="earlier" aria-labelledby="earlier-heading">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-head__row">
+          <div>
+            <span class="eyebrow">Completed · archive</span>
+            <h2 id="earlier-heading" class="h-section">Event archive</h2>
+          </div>
+        </div>
+      </div>
+
+      {
+        buckets.archive.length > 0 ? (
+          <ArchiveList entries={buckets.archive} />
+        ) : (
+          <EmptyState
+            title="The archive is empty"
+            body="No earlier event has been added to this site yet."
+          />
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="undated">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-head__row">
+          <div>
+            <span class="eyebrow">Completed · archive</span>
+            <h2 id="undated" class="h-section">Other activities</h2>
+          </div>
+        </div>
+        <p class="lede">
+          These activities have taken place, but no date has been announced for
+          them, so they are listed by title alone.
+        </p>
+      </div>
+
+      {
+        buckets.undated.length > 0 ? (
+          <ArchiveList entries={buckets.undated} />
+        ) : (
+          <EmptyState title="No entries here" body="Every activity so far carries a date." />
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>

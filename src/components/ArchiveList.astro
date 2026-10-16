@@ -1,0 +1,27 @@
+---
+import type { EventEntry } from '../lib/events';
+
+interface Props {
+  entries: EventEntry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<ul class="archive">
+  {
+    entries.map((entry) => (
+      <li class="archive__item">
+        <p class="archive__date" aria-hidden={entry.data.dateLabel ? undefined : 'true'}>
+          {entry.data.dateLabel}
+        </p>
+        <div class="archive__text">
+          <p class="archive__title">
+            <a href={`/events/${entry.id}/`}>{entry.data.title}</a>
+          </p>
+          <p class="archive__summary">{entry.data.summary}</p>
+        </div>
+      </li>
+    ))
+  }
+</ul>

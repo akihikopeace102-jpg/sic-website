@@ -1,0 +1,40 @@
+---
+interface Props {
+  heading: string;
+  blurb?: string;
+  members: { role: string; name: string; note?: string }[];
+}
+
+const { heading, blurb, members } = Astro.props;
+
+const initials = (name: string) =>
+  name
+    .replace(/^(Mr|Mrs|Ms|Dr)\.?\s+/i, '')
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((part) => part.charAt(0))
+    .join('')
+    .toUpperCase();
+---
+
+<section class="leader-group">
+  <div class="leader-group__head">
+    <h2>{heading}</h2>
+    {blurb && <p>{blurb}</p>}
+  </div>
+
+  <ul>
+    {
+      members.map((member) => (
+        <li class="leader">
+          <span class="leader__initials" aria-hidden="true">
+            {initials(member.name)}
+          </span>
+          <p class="leader__name">{member.name}</p>
+          <p class="leader__role">{member.role}</p>
+          {member.note && <p class="leader__note">{member.note}</p>}
+        </li>
+      ))
+    }
+  </ul>
+</section>

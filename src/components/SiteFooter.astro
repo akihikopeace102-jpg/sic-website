@@ -1,0 +1,55 @@
+---
+import { contact, footerNav, site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <p class="footer-brand">
+          <img src="/images/choithram-school-logo.png" alt="" width="358" height="200" loading="lazy" />
+          School Innovation Council
+        </p>
+        <p>
+          {site.school}. A student-run council for ideation, innovation and
+          entrepreneurship, working under the national School Innovation Council
+          programme.
+        </p>
+      </div>
+
+      <nav class="footer-col" aria-label="Footer">
+        <h2>Pages</h2>
+        <ul>
+          {footerNav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </nav>
+
+      <div class="footer-col">
+        <h2>Contact</h2>
+        <ul>
+          <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
+          <li><a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a></li>
+          <li>
+            <a href={contact.mapUrl} rel="noreferrer noopener" target="_blank">
+              Find us on a map
+            </a>
+          </li>
+          <li>
+            <a href={site.schoolWebsite} rel="noreferrer noopener" target="_blank">
+              Choithram School website
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {year} School Innovation Council, {site.school}.</p>
+      <p>
+        <a href="/contact/">Contact the council</a>
+      </p>
+    </div>
+  </div>
+</footer>

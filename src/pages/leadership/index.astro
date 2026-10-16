@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LeaderGroup from '../../components/LeaderGroup.astro';
+import leadership from '../../content/leadership/session-2026-27.json';
+---
+
+<BaseLayout
+  title="Leadership"
+  description="The School Innovation Council committee for session 2026-27 at Choithram School: executive representatives, teacher representatives, student office-holders and external experts."
+>
+  <section class="page-head">
+    <div class="wrap page-head__inner">
+      <p class="breadcrumb"><a href="/">Home</a> / Leadership</p>
+      <span class="eyebrow">Committee · session {leadership.session}</span>
+      <h1>Who leads the council</h1>
+      <p class="lede">
+        The council publishes its committee once a session. Below is the
+        committee for 2026-27, with its executive, teacher, student and external
+        members.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="leader-groups">
+        {
+          leadership.groups.map((group) => (
+            <LeaderGroup heading={group.heading} blurb={group.blurb} members={group.members} />
+          ))
+        }
+      </div>
+
+      <p class="note mt-lg">
+        Office-holders can change during a session. When a new committee is
+        published, this page is updated. The committee structure itself, and the
+        five groups the national programme defines, are explained on the{' '}
+        <a href="/about/">What is SIC?</a> page.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,226 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { contact, site } from '../../data/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description="How to reach the School Innovation Council at Choithram School, Manik Bagh Road, Indore: e-mail, phone, address and a message composer."
+>
+  <section class="page-head">
+    <div class="wrap page-head__inner">
+      <p class="breadcrumb"><a href="/">Home</a> / Contact</p>
+      <span class="eyebrow">Reach the council</span>
+      <h1>Contact the council</h1>
+      <p class="lede">
+        Write to the School Innovation Council at Choithram School, Manik Bagh
+        Road, Indore.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap contact-grid">
+      <div>
+        <dl class="contact-list">
+          <div>
+            <dt>E-mail</dt>
+            <dd>
+              <a href={`mailto:${contact.email}`}>{contact.email}</a>
+            </dd>
+          </div>
+
+          <div>
+            <dt>Telephone</dt>
+            <dd>
+              <a href={`tel:${contact.phoneHref}`}>{contact.phoneDisplay}</a>
+            </dd>
+          </div>
+
+          <div>
+            <dt>Address</dt>
+            <dd>
+              <address>
+                {contact.addressLines.map((line) => <>{line}<br /></>)}
+              </address>
+            </dd>
+          </div>
+
+          <div>
+            <dt>Elsewhere</dt>
+            <dd>
+              <a href={contact.mapUrl} rel="noreferrer noopener" target="_blank">
+                Find the school on a map
+              </a><br />
+              <a href={site.schoolWebsite} rel="noreferrer noopener" target="_blank">
+                Choithram School website
+              </a><br />
+              <a
+                href="https://choithramschool.com/innoverse/"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                Innoverse, the council’s event site
+              </a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">Write to the council</span>
+          <h2 class="h-sub">Compose a message</h2>
+        </div>
+
+        <div class="callout" role="note">
+          <h3>How this composer works</h3>
+          <p>
+            This page does not send a message by itself. When you press the button
+            at the end of the form, your own e-mail application opens with the
+            message already filled in, addressed to{' '}
+            <a href={`mailto:${contact.email}`}>{contact.email}</a>. You decide
+            when to send it.
+          </p>
+        </div>
+
+        <form class="contact-form mt-lg" id="compose" novalidate>
+          <div class="field">
+            <label for="name">Your name <span class="req">required</span></label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              autocomplete="name"
+              required
+              aria-describedby="name-error"
+            />
+            <p class="field-error" id="name-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="email">Your e-mail <span class="req">required</span></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+              aria-describedby="email-error"
+            />
+            <p class="field-error" id="email-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="subject">Subject <span class="req">required</span></label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              required
+              maxlength="120"
+              aria-describedby="subject-error"
+            />
+            <p class="field-error" id="subject-error" hidden></p>
+          </div>
+
+          <div class="field">
+            <label for="message">Message <span class="req">required</span></label>
+            <textarea
+              id="message"
+              name="message"
+              rows="7"
+              required
+              aria-describedby="message-error message-hint"></textarea>
+            <p class="field-hint" id="message-hint">
+              Say which event or page you are writing about, if it applies.
+            </p>
+            <p class="field-error" id="message-error" hidden></p>
+          </div>
+
+          <div class="cluster">
+            <button class="btn" type="submit">Open in my e-mail app</button>
+          </div>
+
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <noscript>
+          <div class="callout mt-lg">
+            <h3>If your browser has JavaScript turned off</h3>
+            <p>
+              The composer above needs it. Please e-mail{' '}
+              <a href={`mailto:${contact.email}`}>{contact.email}</a> directly, or
+              call {contact.phoneDisplay}.
+            </p>
+          </div>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.querySelector<HTMLFormElement>('#compose');
+    const status = document.querySelector<HTMLElement>('#form-status');
+    const TO = 'sic@choithramschool.com';
+
+    const setError = (id: string, message: string) => {
+      const input = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null;
+      const error = document.getElementById(`${id}-error`);
+      if (!input || !error) return;
+      error.textContent = message;
+      error.hidden = message === '';
+      input.setAttribute('aria-invalid', message === '' ? 'false' : 'true');
+    };
+
+    if (form && status) {
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const value = (id: string) =>
+          (document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement).value.trim();
+
+        const name = value('name');
+        const email = value('email');
+        const subject = value('subject');
+        const message = value('message');
+
+        let firstInvalid = '';
+        setError('name', name ? '' : 'Please tell us who is writing.');
+        if (!name) firstInvalid = 'name';
+
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        setError('email', emailOk ? '' : 'Please enter an e-mail address we can reply to.');
+        if (!emailOk && !firstInvalid) firstInvalid = 'email';
+
+        setError('subject', subject ? '' : 'Please add a subject.');
+        if (!subject && !firstInvalid) firstInvalid = 'subject';
+
+        setError('message', message ? '' : 'Please write your message.');
+        if (!message && !firstInvalid) firstInvalid = 'message';
+
+        if (firstInvalid) {
+          status.textContent = 'Some fields still need attention.';
+          (document.getElementById(firstInvalid) as HTMLElement).focus();
+          return;
+        }
+
+        const body = [
+          message,
+          '',
+          '-----',
+          `From: ${name} <${email}>`,
+          'Written from the SIC website contact composer.',
+        ].join('\n');
+
+        const href = `mailto:${TO}?subject=${encodeURIComponent(
+          `[SIC website] ${subject}`,
+        )}&body=${encodeURIComponent(body)}`;
+
+        status.textContent =
+          'Opening your e-mail application. Press send there when you are ready.';
+        window.location.href = href;
+      });
+    }
+  </script>
+</BaseLayout>

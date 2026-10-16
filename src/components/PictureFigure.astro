@@ -1,0 +1,21 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  wide?: boolean;
+  loading?: 'lazy' | 'eager';
+}
+
+const { src, alt, wide = false, loading = 'lazy' } = Astro.props;
+---
+
+<figure class:list={['figure', wide && 'figure--wide']}>
+  <img
+    src={src}
+    alt={alt}
+    width={wide ? '1600' : '1200'}
+    height={wide ? '800' : '675'}
+    loading={loading}
+    decoding="async"
+  />
+</figure>

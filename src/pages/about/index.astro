@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
+
+const objectives = [
+  'Foster the culture of Ideation, Innovation and Entrepreneurship (IIE) in schools.',
+  'Act as an umbrella programme for the initiatives of the Department of School Education and Literacy, the Ministry of Education’s Innovation Cell, AICTE and other institutions on innovation and entrepreneurship.',
+  'Enable mindset change, awareness and training on IIE, design thinking, startup finance, HR and IPR among teachers and students.',
+  'Provide mentoring and use the school’s existing infrastructure to nurture innovation in learners.',
+  'Enable exchange programmes, collaborations, field visits and ideation activities.',
+  'Act as the enabling platform for implementing the National Policy for Promoting Innovations in Schools.',
+];
+
+const committee = [
+  {
+    letter: 'A',
+    title: 'Executive representatives',
+    body: 'Chairperson of the Council, usually the School Principal or equivalent, and a Convener or Activity Coordinator. These members hold the login credentials for the national SIC website.',
+  },
+  {
+    letter: 'B',
+    title: 'Teacher representatives',
+    body: 'Innovation Ambassadors trained under the School Innovation Ambassador Training Programme, at least two additional teachers nominated by the Principal to carry the SIC calendar, and the Atal Tinkering Lab in charge where a lab exists.',
+  },
+  {
+    letter: 'C',
+    title: 'Social Media Coordinator',
+    body: 'A teacher or member of non-teaching staff nominated by the Principal, with experience and interest in social media management.',
+  },
+  {
+    letter: 'D',
+    title: 'Student representatives',
+    body: 'The School Captain, Head Boy or Head Girl, plus at least five student members nominated by the executive members to support the council’s activities.',
+  },
+  {
+    letter: 'E',
+    title: 'External expert representatives',
+    body: 'A successful entrepreneur, such as a start-up founder, co-founder or alumni entrepreneur, and an expert member drawn from an incubation centre, industry, a bank, an Institution’s Innovation Council, or serving as an IPR expert.',
+  },
+];
+
+const obligations = [
+  {
+    title: 'Register the council',
+    body: 'Executive representatives constitute the committee and register the School Innovation Council on the national SIC website. Schools already registered under the training programme are upgraded automatically.',
+  },
+  {
+    title: 'Work to an annual calendar',
+    body: 'The council runs an activity calendar for the session. Choithram School publishes its own calendar for 2026-27, month by month, with an objective and action points for each month.',
+  },
+  {
+    title: 'Report monthly',
+    body: 'Compliance reports for the activities are submitted to the Ministry of Education’s Innovation Cell on a monthly basis through the SIC website.',
+  },
+  {
+    title: 'Monitored quarterly, rated on credit points',
+    body: 'The Innovation Cell monitors each council quarterly. Credit points drive a performance rating: 50% for SIC calendar activities, 30% for Innovation Cell-driven activities such as hackathons and exhibitions, and 20% for school or self-driven activities.',
+  },
+];
+---
+
+<BaseLayout
+  title="What is SIC?"
+  description="What the School Innovation Council is, why the Ministry of Education’s Innovation Cell created it, how its committee is formed, and what a council must do each session."
+>
+  <section class="page-head">
+    <div class="wrap page-head__inner">
+      <p class="breadcrumb"><a href="/">Home</a> / What is SIC?</p>
+      <span class="eyebrow">Introduction</span>
+      <h1>What the School Innovation Council is</h1>
+      <p class="lede">
+        The council at Choithram School is one of a national network of School
+        Innovation Councils set up under the Ministry of Education’s Innovation
+        Cell. It is a committee with a named membership, an annual activity
+        calendar and a monthly reporting duty.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="split split--uneven">
+        <article class="prose">
+          <h2>Why the programme exists</h2>
+          <p>
+            School education has long been focused on rote learning and a rigid
+            examination system, which leaves little room for creative thinking,
+            design thinking, ideation, innovation, patents, problem solving and an
+            entrepreneurial mindset.
+          </p>
+          <p>
+            The National Education Policy 2020 calls for ideation, out-of-the-box
+            thinking, innovation and entrepreneurship at school level, in a
+            sustainable way. The Ministry of Education’s Innovation Cell set up
+            the School Innovation Council to carry that work into schools.
+          </p>
+          <p>
+            The council is the bridge that brings schools, academia, industry,
+            higher education institutions, experts, innovators and entrepreneurs
+            together to work in unison at school level.
+          </p>
+
+          <h2>What it has to do</h2>
+          <p>
+            The programme’s Scheme and Guidelines set the objective plainly: the
+            School Innovation Council will foster the culture of Ideation,
+            Innovation and Entrepreneurship (IIE) in schools. In full, the
+            objectives are:
+          </p>
+          <ul>
+            {objectives.map((objective) => <li>{objective}</li>)}
+          </ul>
+
+          <h2>The committee</h2>
+          <p>
+            Section V of the guidelines sets out five groups of members. The
+            school publishes its own committee for the session using these group
+            letters.
+          </p>
+        </article>
+
+        <div>
+          <div class="callout">
+            <h3>The council at Choithram School</h3>
+            <p>
+              Choithram School’s committee for the 2026-27 session, with its
+              office-holders and external experts, is listed on the{' '}
+              <a href="/leadership/">Leadership page</a>.
+            </p>
+          </div>
+
+          <div class="mt-lg">
+            <p class="note">
+              For the school itself, including its ethos, admissions and board
+              affiliation, see{' '}
+              <a href={site.schoolWebsite} rel="noreferrer noopener" target="_blank">
+                Choithram School’s own website
+              </a>. The National Policy for Promoting Innovations in Schools is
+              available from{' '}
+              <a
+                href="https://sia.mic.gov.in/assets/doc/school-innovation-policy.pdf"
+                rel="noreferrer noopener"
+                target="_blank"
+              >
+                the Innovation Cell portal
+              </a>
+              . This site covers the School Innovation Council only.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" aria-labelledby="committee">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">The programme’s structure</span>
+        <h2 id="committee" class="h-section">The five groups of the committee</h2>
+      </div>
+
+      <div class="def-grid">
+        {
+          committee.map((row) => (
+            <div class="def-card">
+              <h3>
+                {row.letter}. {row.title}
+              </h3>
+              <p>{row.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="duties">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">What a council owes the programme</span>
+        <h2 id="duties" class="h-section">Four standing obligations</h2>
+      </div>
+
+      <ul class="index-list">
+        {
+          obligations.map((row, i) => (
+            <li class="index-list__item">
+              <p class="index-list__num">{String(i + 1).padStart(2, '0')}</p>
+              <p class="index-list__title">{row.title}</p>
+              <div class="index-list__body">
+                <p>{row.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="callout mt-lg">
+        <h3>Reading the guidelines</h3>
+        <p>
+          The Scheme and Guidelines are published by the Ministry of Education’s
+          Innovation Cell at{' '}
+          <a href="https://sic.mic.gov.in/" rel="noreferrer noopener" target="_blank">
+            sic.mic.gov.in
+          </a>
+          , where councils register and submit their monthly compliance reports.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
